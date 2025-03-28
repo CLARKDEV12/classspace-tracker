@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 interface RoomStore {
   rooms: Room[];
   addRoom: (room: Omit<Room, 'id' | 'lastUpdated'>) => void;
+  updateRoom: (room: Room) => void;
   updateStatus: (id: string, status: RoomStatus, reportedBy?: string) => void;
   removeRoom: (id: string) => void;
 }
@@ -26,6 +27,18 @@ const useRoomStore = create<RoomStore>((set) => ({
     }));
     
     toast.success(`Room ${roomData.name} added successfully`);
+  },
+  
+  updateRoom: (updatedRoom) => {
+    set((state) => ({
+      rooms: state.rooms.map((room) => 
+        room.id === updatedRoom.id 
+          ? updatedRoom
+          : room
+      ),
+    }));
+    
+    toast.success(`Room ${updatedRoom.name} updated successfully`);
   },
   
   updateStatus: (id, status, reportedBy) => {

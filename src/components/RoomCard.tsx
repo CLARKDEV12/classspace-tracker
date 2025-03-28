@@ -3,10 +3,23 @@ import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, Users, Building } from 'lucide-react';
+import { Clock, Users, Building, Edit, Trash2 } from 'lucide-react';
 import { Room } from '@/types';
 import useRoomStore from '@/lib/roomStore';
 import { formatDistanceToNow } from 'date-fns';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import UpdateRoomModal from './UpdateRoomModal';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface RoomCardProps {
   room: Room;
@@ -61,31 +74,71 @@ const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
         </div>
       </CardContent>
       
-      <CardFooter className="pt-0 flex gap-2">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className={`border-vacant text-vacant hover:bg-vacant hover:text-white ${room.status === 'vacant' ? 'bg-vacant text-white' : ''}`}
-          onClick={() => handleStatusUpdate('vacant')}
-        >
-          Vacant
-        </Button>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className={`border-occupied text-occupied hover:bg-occupied hover:text-white ${room.status === 'occupied' ? 'bg-occupied text-white' : ''}`}
-          onClick={() => handleStatusUpdate('occupied')}
-        >
-          Occupied
-        </Button>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className={`border-scheduled text-scheduled hover:bg-scheduled hover:text-white ${room.status === 'scheduled' ? 'bg-scheduled text-white' : ''}`}
-          onClick={() => handleStatusUpdate('scheduled')}
-        >
-          Class
-        </Button>
+      <CardFooter className="pt-0 flex flex-col gap-2">
+        <div className="flex gap-2 w-full">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className={`border-vacant text-vacant hover:bg-vacant hover:text-white ${room.status === 'vacant' ? 'bg-vacant text-white' : ''}`}
+            onClick={() => handleStatusUpdate('vacant')}
+          >
+            Vacant
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className={`border-occupied text-occupied hover:bg-occupied hover:text-white ${room.status === 'occupied' ? 'bg-occupied text-white' : ''}`}
+            onClick={() => handleStatusUpdate('occupied')}
+          >
+            Occupied
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className={`border-scheduled text-scheduled hover:bg-scheduled hover:text-white ${room.status === 'scheduled' ? 'bg-scheduled text-white' : ''}`}
+            onClick={() => handleStatusUpdate('scheduled')}
+          >
+            Class
+          </Button>
+        </div>
+        
+        <div className="flex justify-end gap-2 w-full mt-2">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Edit className="h-3.5 w-3.5 mr-1" />
+                Edit
+              </Button>
+            </DialogTrigger>
+            <UpdateRoomModal room={room} />
+          </Dialog>
+          
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" size="sm" className="border-destructive text-destructive hover:bg-destructive hover:text-white">
+                <Trash2 className="h-3.5 w-3.5 mr-1" />
+                Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Room</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to delete "{room.name}"? This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction 
+                  onClick={() => removeRoom(room.id)} 
+                  className="bg-destructive hover:bg-destructive/90"
+                >
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </CardFooter>
     </Card>
   );
