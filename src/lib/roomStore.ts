@@ -33,7 +33,7 @@ const useRoomStore = create<RoomStore>((set) => ({
     set((state) => ({
       rooms: state.rooms.map((room) => 
         room.id === updatedRoom.id 
-          ? updatedRoom
+          ? { ...updatedRoom, lastUpdated: new Date() }
           : room
       ),
     }));
@@ -59,11 +59,19 @@ const useRoomStore = create<RoomStore>((set) => ({
   },
   
   removeRoom: (id) => {
-    set((state) => ({
-      rooms: state.rooms.filter((room) => room.id !== id),
-    }));
+    // Get the room name before removing it
+    let roomName = "";
+    set((state) => {
+      const roomToRemove = state.rooms.find(room => room.id === id);
+      if (roomToRemove) {
+        roomName = roomToRemove.name;
+      }
+      return {
+        rooms: state.rooms.filter((room) => room.id !== id),
+      };
+    });
     
-    toast.success(`Room removed`);
+    toast.success(`Room ${roomName} removed successfully`);
   },
 }));
 

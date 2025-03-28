@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { DoorOpen, PlusCircle } from 'lucide-react';
 import AddRoomModal from './AddRoomModal';
+import Navigation from './Navigation';
 
 const Header: React.FC = () => {
   return (
@@ -24,6 +25,8 @@ const Header: React.FC = () => {
           <AddRoomModal />
         </Dialog>
       </div>
+      
+      <Navigation />
     </header>
   );
 };
