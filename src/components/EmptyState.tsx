@@ -5,13 +5,23 @@ import { Button } from '@/components/ui/button';
 import { DoorClosed, PlusCircle } from 'lucide-react';
 import AddRoomModal from './AddRoomModal';
 
-const EmptyState: React.FC = () => {
+interface EmptyStateProps {
+  icon?: React.ReactNode;
+  title?: string;
+  description?: string;
+}
+
+const EmptyState: React.FC<EmptyStateProps> = ({ 
+  icon = <DoorClosed className="h-16 w-16 text-gray-300 mb-4" />,
+  title = "No Rooms Added Yet",
+  description = "Start by adding classrooms and spaces to track their availability status."
+}) => {
   return (
     <div className="flex flex-col items-center justify-center text-center h-[70vh]">
-      <DoorClosed className="h-16 w-16 text-gray-300 mb-4" />
-      <h2 className="text-2xl font-bold mb-2">No Rooms Added Yet</h2>
+      {icon}
+      <h2 className="text-2xl font-bold mb-2">{title}</h2>
       <p className="text-gray-500 max-w-md mb-6">
-        Start by adding classrooms and spaces to track their availability status.
+        {description}
       </p>
       
       <Dialog>
