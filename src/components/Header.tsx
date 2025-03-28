@@ -1,9 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
-import { DoorOpen, PlusCircle } from 'lucide-react';
-import AddRoomModal from './AddRoomModal';
+import { DoorOpen, LogOut } from 'lucide-react';
 import Navigation from './Navigation';
 
 const Header: React.FC = () => {
@@ -15,15 +13,10 @@ const Header: React.FC = () => {
           <h1 className="text-xl font-bold">ClassSpace Tracker</h1>
         </div>
         
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="bg-scheduled hover:bg-scheduled/90">
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add Room
-            </Button>
-          </DialogTrigger>
-          <AddRoomModal />
-        </Dialog>
+        <Button variant="outline" className="text-gray-700 hover:text-gray-900">
+          <LogOut className="h-4 w-4 mr-2" />
+          Log Out
+        </Button>
       </div>
       
       <Navigation />

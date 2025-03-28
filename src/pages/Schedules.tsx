@@ -2,7 +2,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import EmptyState from '@/components/EmptyState';
 import { Calendar } from 'lucide-react';
 import useRoomStore from '@/lib/roomStore';
 import Layout from '@/components/Layout';
@@ -65,11 +64,13 @@ const Schedules: React.FC = () => {
           </CardContent>
         </Card>
       ) : (
-        <EmptyState 
-          icon={<Calendar className="h-12 w-12 text-gray-400" />}
-          title="No Schedules Added Yet"
-          description="Room schedules will appear here once added."
-        />
+        <div className="flex flex-col items-center justify-center text-center h-[70vh]">
+          <Calendar className="h-12 w-12 text-gray-400" />
+          <h2 className="text-2xl font-bold mb-2">No Schedules Added Yet</h2>
+          <p className="text-gray-500 max-w-md mb-6">
+            Create schedules for your rooms to manage class timings and availability.
+          </p>
+        </div>
       )}
     </Layout>
   );
