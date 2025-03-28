@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -59,8 +58,12 @@ const AddRoomModal: React.FC = () => {
   
   const onSubmit = (data: FormValues) => {
     addRoom({
-      ...data,
+      name: data.name,
+      building: data.building,
+      floor: data.floor,
+      status: data.status,
       capacity: data.capacity ? parseInt(data.capacity) : undefined,
+      schedule: data.schedule,
       reportedBy: 'Admin',
     });
     form.reset();
