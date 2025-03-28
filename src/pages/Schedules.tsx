@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import EmptyState from '@/components/EmptyState';
 import { Calendar } from 'lucide-react';
 import useRoomStore from '@/lib/roomStore';
+import Layout from '@/components/Layout';
 
 interface Schedule {
   id: string;
@@ -22,7 +23,7 @@ const Schedules: React.FC = () => {
   const schedules: Schedule[] = [];
   
   return (
-    <div className="container mx-auto p-4">
+    <Layout>
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-2">Room Schedules</h1>
         <p className="text-gray-500">Manage schedules for all rooms</p>
@@ -70,7 +71,7 @@ const Schedules: React.FC = () => {
           description="Room schedules will appear here once added."
         />
       )}
-    </div>
+    </Layout>
   );
 };
 

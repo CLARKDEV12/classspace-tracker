@@ -3,13 +3,14 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import EmptyState from '@/components/EmptyState';
 import { Building } from 'lucide-react';
+import Layout from '@/components/Layout';
 
 const Roadmap: React.FC = () => {
   // In the future, this will be populated with actual building data
   const buildings: any[] = [];
   
   return (
-    <div className="container mx-auto p-4">
+    <Layout>
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-2">Building Roadmap</h1>
         <p className="text-gray-500">Overview of all buildings and their rooms</p>
@@ -36,7 +37,7 @@ const Roadmap: React.FC = () => {
           description="Buildings and their layouts will appear here once added."
         />
       )}
-    </div>
+    </Layout>
   );
 };
 
